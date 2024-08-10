@@ -97,4 +97,26 @@ public class CheatsheetRepository {
         }
         return cheatsheet;
     }
+
+    public int save(String name, String description, String color, String content, String style, String type, String language, String layout, int userId, int sectionId, int subsectionId) {
+        int result = 0;
+        String query = "INSERT INTO cheatsheet(name, description, color, content, style, type, language, user_id, section_id, subsection_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1, name);
+            stmt.setString(2, description);
+            stmt.setString(3, color);
+            stmt.setString(4, content);
+            stmt.setString(5, style);
+            stmt.setString(6, type);
+            stmt.setString(7, language);
+            stmt.setInt(8, userId);
+            stmt.setInt(9, sectionId);
+            stmt.setInt(10, subsectionId);
+            result = stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
 }

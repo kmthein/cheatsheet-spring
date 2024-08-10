@@ -20,4 +20,5 @@
     <bean id="userRepository" class="com.spring.repository.UserRepository"></bean>
     <bean id="sectionRepository" class="com.spring.repository.SectionRepository"></bean>
     <bean id="subsectionRepository" class="com.spring.repository.SubsectionRepository"></bean>
+    <bean id="mapper" class="org.modelmapper.ModelMapper"></bean>
 </beans>

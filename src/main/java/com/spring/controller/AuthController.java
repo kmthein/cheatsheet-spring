@@ -53,7 +53,7 @@ public class AuthController {
             user.setRole(userExist.getRole());
 //			userExist.setPassword(password);
             session.setAttribute("user", user);
-            return "index";
+            return "redirect:cheatsheets";
         }
     }
 

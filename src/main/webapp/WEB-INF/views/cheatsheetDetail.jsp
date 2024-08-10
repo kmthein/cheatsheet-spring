@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page import="com.spring.utils.ColorUtil" %>
 <%@ page import="com.spring.model.Cheatsheet" %>
+<%@ page import="com.spring.model.User" %>
 <%
 	// Access the Cheatsheet object using request scope
 	Cheatsheet cs = (Cheatsheet) request.getAttribute("cs");
@@ -15,18 +16,15 @@
 tr {
 	border: 1px solid black;
 }
-
 th {
 	background: <%=hexColor%>;
 	color: white;
 	padding: 10px;
 }
-
 td {
 	border: 1px solid black;
 	padding: 10px;
 }
-
 tr:nth-child(odd) {
 	background-color: <%=rgbaColor%>;
 }
@@ -37,7 +35,16 @@ tr:nth-child(odd) {
 			<h2>
 				<c:out value="${cs.name}" />
 			</h2>
-			<a href="edit-cheatsheet?id=${cs.id}"><button class="btn btn-primary">Edit Cheatsheet</button></a>
+			<%
+				if(session.getAttribute("user") != null) {
+				User user = (User) session.getAttribute("user");
+				if (user.getId() == cs.getUser().getId()) {
+			%>
+			<div>
+				<a href="edit-cheatsheet?id=${cs.id}"><button class="btn btn-primary">Edit</button></a>
+				<a href="edit-cheatsheet?id=${cs.id}"><button class="btn" style="background: red">Delete</button></a>
+			</div>
+			<% }} %>
 		</div>
 		<p style="margin: 5px 0;">
 			<c:out value="${cs.description}" />
