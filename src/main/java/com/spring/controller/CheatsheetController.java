@@ -42,7 +42,11 @@ public class CheatsheetController {
     @GetMapping("/cheatsheets")
     public String getCheatsheets(Model model) {
         List<Cheatsheet> cheatsheets = cheatsheetRepository.getAllCheatsheets();
+        List<Section> sections = sectionRepository.getAllSections();
+        List<Subsection> subsections = subsectionRepository.getAllSubsections();
         model.addAttribute("cheatsheets", cheatsheets) ;
+        model.addAttribute("sections", sections) ;
+        model.addAttribute("subsections", subsections) ;
         return "allCheatsheets";
     }
 
@@ -51,6 +55,17 @@ public class CheatsheetController {
         Cheatsheet cheatsheet = cheatsheetRepository.getCheatsheetById(id);
         model.addAttribute("cs", cheatsheet);
         return "cheatsheetDetail";
+    }
+
+    @GetMapping("/cheatsheets/section/{id}")
+    public String cheatsheetFilterBySection(@PathVariable int id, Model model) {
+        List<Cheatsheet> cheatsheets = cheatsheetRepository.getCheatsheetsBySection(id);
+        List<Section> sections = sectionRepository.getAllSections();
+        List<Subsection> subsections = subsectionRepository.getAllSubsections();
+        model.addAttribute("cheatsheets", cheatsheets) ;
+        model.addAttribute("sections", sections) ;
+        model.addAttribute("subsections", subsections) ;
+        return "allCheatsheets";
     }
 
     @GetMapping("/add-cheatsheet")
