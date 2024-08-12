@@ -39,6 +39,10 @@ public class CheatsheetController {
     @Autowired
     ModelMapper mapper;
 
+    @GetMapping("/home")
+    public String getHomePage() {
+        return "index";
+    }
     @GetMapping("/cheatsheets")
     public String getCheatsheets(Model model) {
         List<Cheatsheet> cheatsheets = cheatsheetRepository.getAllCheatsheets();

@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
 	<div class="container">
-		<a class="navbar-brand" href="${pageContext.request.contextPath}/home">Cheatography</a>
+		<a class="navbar-brand" href="/home">Cheatography</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 			data-bs-target="#navbarResponsive" aria-controls="navbarResponsive"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -11,15 +11,15 @@
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav ms-auto py-4 py-lg-0">
 				<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
-					href="${pageContext.request.contextPath}/home">Home</a></li>
+					href="/home">Home</a></li>
 				<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
-					href="${pageContext.request.contextPath}/cheatsheets">Cheatsheet</a></li>
+					href="/cheatsheets">Cheatsheet</a></li>
 				<%
 				User user = (User) session.getAttribute("user");
 				if (user != null) {
 				%>
 				<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
-					href="${pageContext.request.contextPath}/add-cheatsheet">Create</a></li>
+					href="/add-cheatsheet">Create</a></li>
 				<div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
 					<ul class="navbar-nav">
 						<li class="nav-item dropdown"><a
@@ -30,13 +30,13 @@
 								if (user != null) {
 									if (user.getRole().name().equals("ADMIN")) {
 								%>
-									<li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin">Go to Admin
+									<li><a class="dropdown-item" href="/admin">Go to Admin
 											Panel</a></li>
 								<%
 								}
 								}
 								%>
-								<li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Logout</a></li>
+								<li><a class="dropdown-item" href="/logout">Logout</a></li>
 							</ul></li>
 					</ul>
 				</div>
@@ -44,9 +44,9 @@
 				} else {
 				%>
 				<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
-					href="${pageContext.request.contextPath}/login">Login</a></li>
+					href="/login">Login</a></li>
 				<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
-					href="${pageContext.request.contextPath}/register">Register</a></li>
+					href="/register">Register</a></li>
 				<%
 				}
 				%>

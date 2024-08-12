@@ -12,15 +12,15 @@
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav ms-auto py-4 py-lg-0">
 				<li class="nav-item"><a style="color: black"
-					class="nav-link px-lg-3 py-3 py-lg-4" href="${pageContext.request.contextPath}/home">Home</a></li>
+					class="nav-link px-lg-3 py-3 py-lg-4" href="/home">Home</a></li>
 				<li class="nav-item"><a style="color: black"
-					class="nav-link px-lg-3 py-3 py-lg-4" href="${pageContext.request.contextPath}/cheatsheets">Cheatsheet</a></li>
+					class="nav-link px-lg-3 py-3 py-lg-4" href="/cheatsheets">Cheatsheet</a></li>
 				<%
 				User user = (User) session.getAttribute("user");
 				if (user != null) {
 				%>
 				<li class="nav-item"><a style="color: black"
-					class="nav-link px-lg-3 py-3 py-lg-4" href="${pageContext.request.contextPath}/add-cheatsheet">Create</a></li>
+					class="nav-link px-lg-3 py-3 py-lg-4" href="/add-cheatsheet">Create</a></li>
 				<div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
 					<ul class="navbar-nav">
 						<li class="nav-item dropdown"><a style="color: black"
@@ -32,13 +32,13 @@
 								if (user != null) {
 									if (user.getRole().name().equals("ADMIN")) {
 								%>
-									<li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin">Go to Admin
+									<li><a class="dropdown-item" href="/admin">Go to Admin
 											Panel</a></li>
 								<%
 								}
 								}
 								%>
-								<li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Logout</a></li>
+								<li><a class="dropdown-item" href="/logout">Logout</a></li>
 							</ul></li>
 					</ul>
 				</div>
@@ -46,9 +46,9 @@
 				} else {
 				%>
 				<li class="nav-item"><a style="color: black"
-					class="nav-link px-lg-3 py-3 py-lg-4" href="${pageContext.request.contextPath}/login">Login</a></li>
+					class="nav-link px-lg-3 py-3 py-lg-4" href="/login">Login</a></li>
 				<li class="nav-item"><a style="color: black"
-					class="nav-link px-lg-3 py-3 py-lg-4" href="${pageContext.request.contextPath}/register">Register</a></li>
+					class="nav-link px-lg-3 py-3 py-lg-4" href="/register">Register</a></li>
 				<%
 				}
 				%>
