@@ -31,8 +31,8 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="sections">Main Section</a>
-                        <a class="collapse-item" href="subsections">Subsection</a>
+                        <a class="collapse-item" href="/admin/section">Main Section</a>
+                        <a class="collapse-item" href="/admin/subsection">Subsection</a>
                     </div>
                 </div>
             </li>

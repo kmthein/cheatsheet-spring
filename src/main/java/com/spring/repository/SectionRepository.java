@@ -38,6 +38,28 @@ public class SectionRepository {
         return section;
     }
 
+    public Section getSectionByName(String name) {
+        Section section = null;
+        String query = "SELECT * FROM section WHERE name = ?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1, name);
+            ResultSet set= stmt.executeQuery();
+            while(set.next()) {
+                section = new Section();
+                section.setId(set.getInt("id"));
+                section.setName(set.getString("name"));
+                Timestamp timestamp = set.getTimestamp("updated_at");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                LocalDateTime updatedAt = timestamp.toLocalDateTime();
+                section.setUpdatedAtFormatted(updatedAt.format(formatter));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return section;
+    }
+
     public List<Section> getAllSections() {
         List<Section> sections = new ArrayList<>();
         String query = "SELECT * FROM section";
@@ -58,5 +80,18 @@ public class SectionRepository {
             e.printStackTrace();
         }
         return sections;
+    }
+
+    public int save(String name) {
+        int result = 0;
+        String query = "INSERT INTO section(name) VALUES(?)";
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1, name);
+            result = stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
     }
 }

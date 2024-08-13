@@ -15,7 +15,7 @@
 					<!-- Page Heading -->
 					<div style="display: flex; justify-content: space-between; margin-bottom: 10px">
 						<h5 style="margin-bottom: 15px">All Sections</h5>
-						<a href="addSection.jsp" style="background: #3158C9; color: #FFF; border: 0; font-size: 15px; padding: 5px 10px; border-radius: 5px;">Add Section</a>
+						<a href="/admin/add-section" style="background: #3158C9; color: #FFF; border: 0; font-size: 15px; padding: 5px 10px; border-radius: 5px;">Add Section</a>
 					</div>
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
@@ -83,7 +83,7 @@
 					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
 					<button class="close" type="button" data-dismiss="modal"
 						aria-label="Close">
-						<span aria-hidden="true">×</span>
+						<span aria-hidden="true">ï¿½</span>
 					</button>
 				</div>
 				<div class="modal-body">Select "Logout" below if you are ready
