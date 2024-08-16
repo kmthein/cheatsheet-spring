@@ -1,67 +1,42 @@
 package com.spring.repository;
 
-import com.spring.model.Role;
-import com.spring.model.User;
+import com.spring.entity.User;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 @Repository
-public class UserRepository {
-    public static Connection con = null;
+public class UserRepository implements UserInterface {
+    @PersistenceContext
+    private EntityManager em;
 
-    static {
-        con = MyConnection.getConn();
-    }
-
-    public User getUserById(int id) {
-        User user = null;
-        String query = "SELECT * FROM user WHERE id = ?";
+    @Transactional
+    @Override
+    public int saveUser(User user) {
+        int result = 0;
         try {
-            PreparedStatement stmt = con.prepareStatement(query);
-            stmt.setInt(1, id);
-            ResultSet set = stmt.executeQuery();
-            while (set.next()) {
-                user = new User();
-                user.setId(set.getInt("id"));
-                user.setEmail(set.getString("email"));
-                user.setPassword(set.getString("password"));
-                user.setName(set.getString("name"));
-                user.setWebsite(set.getString("website"));
-                user.setDescription(set.getString("description"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            em.persist(user);
+            result = 1;
+        } catch (Exception e) {
+            result = 0;
+            System.out.println(e.getMessage());
         }
-        return user;
+        return result;
     }
 
-    public User getUserByEmail(String email) {
+    @Override
+    public User findByEmail(String email) {
+        Query query = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
+        query.setParameter("email", email);
         User user = null;
-        String query = "SELECT * FROM user WHERE email = ?";
         try {
-            PreparedStatement stmt = con.prepareStatement(query);
-            stmt.setString(1, email);
-            ResultSet set = stmt.executeQuery();
-            while (set.next()) {
-                user = new User();
-                user.setId(set.getInt("id"));
-                user.setEmail(set.getString("email"));
-                user.setPassword(set.getString("password"));
-                user.setName(set.getString("name"));
-                user.setWebsite(set.getString("website"));
-                user.setDescription(set.getString("description"));
-                String roleString = set.getString("role");
-                if (roleString != null) {
-                    Role role = Role.valueOf(roleString.toUpperCase());
-                    user.setRole(role);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            user = (User) query.getSingleResult();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            user = null;
         }
         return user;
     }

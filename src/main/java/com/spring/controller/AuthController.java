@@ -1,9 +1,11 @@
 package com.spring.controller;
 
 import com.spring.dto.LoginDTO;
+import com.spring.dto.ResponseDTO;
+import com.spring.entity.User;
 import com.spring.jbcrypt.BCrypt;
-import com.spring.model.User;
-import com.spring.repository.UserRepository;
+import com.spring.model.UserOld;
+import com.spring.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +20,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class AuthController {
     @Autowired
-    private UserRepository userRepository;
+    private AuthService authService;
 
     @GetMapping("/login")
     public ModelAndView getLoginPage() {
@@ -27,33 +29,14 @@ public class AuthController {
 
     @PostMapping("/login")
     public String loginUser(@ModelAttribute("user") LoginDTO loginDTO, Model model, HttpServletRequest request) {
-        String email = loginDTO.getEmail();
-        String password = loginDTO.getPassword();
-        User userExist = userRepository.getUserByEmail(email);
-        if (userExist == null) {
-            model.addAttribute("error", "Email not existed!");
-            model.addAttribute("email", email);
-            return "loginPage";
-        } else {
-            String storedHashPassword = userExist.getPassword();
-            Boolean passValid = BCrypt.checkpw(password, storedHashPassword);
-            if (!passValid) {
-                model.addAttribute("error", "Email or password wrong!");
-                model.addAttribute("email", email);
-                return "loginPage";
-            }
+        ResponseDTO res = authService.loginUser(loginDTO);
+        if(res.getStatus().equals("200")) {
             HttpSession session = request.getSession();
-            User user = new User();
-            user.setName(userExist.getName());
-            user.setEmail(userExist.getEmail());
-            user.setId(userExist.getId());
-            user.setPassword(password);
-            user.setDescription(userExist.getDescription());
-            user.setWebsite(userExist.getWebsite());
-            user.setRole(userExist.getRole());
-//			userExist.setPassword(password);
-            session.setAttribute("user", user);
-            return "redirect:cheatsheets";
+            session.setAttribute("user", res.getUser());
+            return "redirect:/cheatsheets";
+        } else {
+            model.addAttribute("error", res.getMessage());
+            return "loginPage";
         }
     }
 
@@ -66,6 +49,23 @@ public class AuthController {
 
     @GetMapping("/register")
     public ModelAndView getRegisterPage() {
-        return new ModelAndView("registerPage", "user", new User());
+        return new ModelAndView("registerPage", "user", new UserOld());
+    }
+
+    @PostMapping("/register")
+    public String registerUser(User user, Model model) {
+        ResponseDTO res = authService.registerUser(user);
+        if(res.getStatus().equals("403")) {
+            model.addAttribute("message", res.getMessage());
+            return "registerPage";
+        } else if (res.getStatus().equals("409")) {
+            model.addAttribute("message", res.getMessage());
+            return "registerPage";
+        } else if (res.getStatus().equals("201")) {
+            model.addAttribute("message", res.getMessage());
+            return "redirect:/home";
+        }  else {
+            return "registerPage";
+        }
     }
 }

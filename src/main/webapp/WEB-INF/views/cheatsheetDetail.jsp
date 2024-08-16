@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page import="com.spring.utils.ColorUtil" %>
 <%@ page import="com.spring.model.Cheatsheet" %>
-<%@ page import="com.spring.model.User" %>
+<%@ page import="com.spring.model.UserOld" %>
 <%
 	// Access the Cheatsheet object using request scope
 	Cheatsheet cs = (Cheatsheet) request.getAttribute("cs");
@@ -37,7 +37,7 @@ tr:nth-child(odd) {
 			</h2>
 			<%
 				if(session.getAttribute("user") != null) {
-				User user = (User) session.getAttribute("user");
+				UserOld user = (UserOld) session.getAttribute("user");
 				if (user.getId() == cs.getUser().getId()) {
 			%>
 			<div>

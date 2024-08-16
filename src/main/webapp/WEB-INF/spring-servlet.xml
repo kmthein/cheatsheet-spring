@@ -1,14 +1,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
-           http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans.xsd
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context.xsd
            http://www.springframework.org/schema/mvc
-           http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+           http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
     <mvc:annotation-driven />
     <context:component-scan base-package="com.spring" />
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -16,9 +15,36 @@
         <property name="suffix" value=".jsp" />
     </bean>
     <mvc:resources mapping="/resources/**" location="/resources/" />
-    <bean id="cheatsheetRepository" class="com.spring.repository.CheatsheetRepository"></bean>
-    <bean id="userRepository" class="com.spring.repository.UserRepository"></bean>
-    <bean id="sectionRepository" class="com.spring.repository.SectionRepository"></bean>
-    <bean id="subsectionRepository" class="com.spring.repository.SubsectionRepository"></bean>
     <bean id="mapper" class="org.modelmapper.ModelMapper"></bean>
+    <bean id="ld"
+          class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />
+    <context:load-time-weaver />
+    <bean id="jpaVendor"
+          class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
+        <property name="showSql" value="true" />
+        <property name="generateDdl" value="true" />
+        <property name="database" value="MYSQL" />
+    </bean>
+
+    <bean id="emf"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="loadTimeWeaver" ref="ld" />
+
+        <property name="jpaVendorAdapter" ref="jpaVendor"></property>
+        <property name="persistenceUnitName"
+                  value="Cheatsheet" />
+        <property name="packagesToScan">
+            <list>
+                <value>com.spring.entity</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="myTxManager"
+          class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="emf" />
+
+    </bean>
+    <tx:annotation-driven
+            transaction-manager="myTxManager" />
 </beans>

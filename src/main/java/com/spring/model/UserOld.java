@@ -1,6 +1,6 @@
 package com.spring.model;
 
-public class User extends Base {
+public class UserOld extends Base {
 	private String email, password, name, website, description;
 	private Role role;
 
