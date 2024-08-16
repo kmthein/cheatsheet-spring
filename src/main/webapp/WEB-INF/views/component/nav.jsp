@@ -1,4 +1,4 @@
-<%@ page import="com.spring.model.UserOld"%>
+<%@ page import="com.spring.entity.User" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <nav class="navbar navbar-expand-lg navbar-light" id="mainNav"
 	style="position: relative">
@@ -16,7 +16,7 @@
 				<li class="nav-item"><a style="color: black"
 					class="nav-link px-lg-3 py-3 py-lg-4" href="/cheatsheets">Cheatsheet</a></li>
 				<%
-				UserOld user = (UserOld) session.getAttribute("user");
+				User user = (User) session.getAttribute("user");
 				if (user != null) {
 				%>
 				<li class="nav-item"><a style="color: black"

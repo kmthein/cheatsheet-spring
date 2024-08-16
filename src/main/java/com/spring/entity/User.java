@@ -17,5 +17,6 @@ public class User {
     private String name;
     private String website;
     private String description;
+    @Enumerated(EnumType.STRING)
     private Role role;
 }

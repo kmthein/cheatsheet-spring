@@ -5,5 +5,9 @@ import javax.persistence.Enumerated;
 
 public enum Role {
 	@Enumerated(EnumType.STRING)
-	NONE, USER, ADMIN;
+	NONE,
+	@Enumerated(EnumType.STRING)
+	USER,
+	@Enumerated(EnumType.STRING)
+	ADMIN;
 }
