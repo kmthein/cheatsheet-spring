@@ -1,19 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Cheatsheet Form</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
-    <style>
-        .form-label {
-            font-weight: bold;
-        }
-        .form-check-label {
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
 <div class="container mt-4">
     <form action="/add-block" method="post">
         <!-- Block ID (hidden) -->
@@ -104,5 +89,4 @@
         }
     });
 </script>
-</body>
-</html>
+

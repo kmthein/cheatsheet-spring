@@ -1,10 +1,8 @@
 package com.spring.controller;
 
+import com.spring.dto.BlockDTO;
 import com.spring.dto.CheatsheetDTO;
-import com.spring.entity.Cheatsheet;
-import com.spring.entity.Section;
-import com.spring.entity.Subsection;
-import com.spring.entity.User;
+import com.spring.entity.*;
 import com.spring.service.CheatsheetService;
 import com.spring.service.SectionService;
 import com.spring.service.SubsectionService;
@@ -20,8 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class CheatsheetController {
@@ -44,9 +45,12 @@ public class CheatsheetController {
     @GetMapping("/cheatsheets")
     public String getCheatsheets(Model model) {
         List<Cheatsheet> cheatsheets = cheatsheetService.getAllCheatsheets();
+        List<CheatsheetDTO> cheatsheetDTOs = cheatsheets.stream()
+                .map(cheatsheetService::convertToDTO)
+                .collect(Collectors.toList());
         List<Section> sections = sectionService.getAllSections();
         List<Subsection> subsections = subsectionService.getAllSubsections();
-        model.addAttribute("cheatsheets", cheatsheets) ;
+        model.addAttribute("cheatsheets", cheatsheetDTOs) ;
         model.addAttribute("sections", sections) ;
         model.addAttribute("subsections", subsections) ;
         return "allCheatsheets";
@@ -88,7 +92,9 @@ public class CheatsheetController {
     @GetMapping("/cheatsheets/{id}")
     public String getCheatsheetById(@PathVariable int id, Model model) {
         Cheatsheet cheatsheet = cheatsheetService.getCheatsheetById(id);
+        List<BlockDTO> blockDTOList = cheatsheetService.getBlocksForCheatsheet(id);
         model.addAttribute("cs", cheatsheet);
+        model.addAttribute("blocks", blockDTOList);
         return "cheatsheetDetail";
     }
 
@@ -108,6 +114,8 @@ public class CheatsheetController {
         Cheatsheet cheatsheet = cheatsheetService.getCheatsheetById(id);
         List<Section> sections = sectionService.getAllSections();
         List<Subsection> subsections = subsectionService.getAllSubsections();
+        List<BlockDTO> blockDTOList = cheatsheetService.getBlocksForCheatsheet(id);
+        model.addAttribute("blocks", blockDTOList);
         model.addAttribute("cs", cheatsheet);
         model.addAttribute("sections", sections);
         model.addAttribute("subsections", subsections);

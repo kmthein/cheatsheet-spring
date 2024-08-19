@@ -1,5 +1,6 @@
 package com.spring.repository;
 
+import com.spring.dto.BlockDTO;
 import com.spring.entity.Block;
 import com.spring.entity.Cell;
 import com.spring.entity.Cheatsheet;
@@ -22,4 +23,6 @@ public interface CheatsheetInterface {
     int saveCells(Cell cell);
 
     Block findBlockById(int id);
+
+    List<BlockDTO> getBlocksByCheatsheet(int cheatsheetId);
 }

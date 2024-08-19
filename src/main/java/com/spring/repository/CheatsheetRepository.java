@@ -1,5 +1,7 @@
 package com.spring.repository;
 
+import com.spring.dto.BlockDTO;
+import com.spring.dto.CellDTO;
 import com.spring.entity.Block;
 import com.spring.entity.Cell;
 import com.spring.entity.Cheatsheet;
@@ -10,7 +12,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class CheatsheetRepository implements CheatsheetInterface {
@@ -121,6 +125,43 @@ public class CheatsheetRepository implements CheatsheetInterface {
             return block;
         }
         return block;
+    }
+
+    @Override
+    public List<BlockDTO> getBlocksByCheatsheet(int cheatsheetId) {
+        // Query to fetch blocks with their cells
+        List<Object[]> result = em.createQuery("SELECT b.id, b.blockTitle, cs.description, c.rowNum, c.colNum, c.content " +
+                        "FROM Cell c " +
+                        "JOIN c.block b " +
+                        "JOIN b.cheatsheet cs " +
+                        "WHERE cs.id = :cheatsheetId " +
+                        "ORDER BY b.id, c.rowNum, c.colNum")
+                .setParameter("cheatsheetId", cheatsheetId)
+                .getResultList();
+
+        Map<Integer, BlockDTO> blocksMap = new HashMap<>();
+        for (Object[] row : result) {
+            int blockId = (int) row[0];
+            String blockTitle = (String) row[1];
+            String description = (String) row[2];
+            int rowNum = (int) row[3];
+            int colNum = (int) row[4];
+            String content = (String) row[5];
+
+            BlockDTO block = blocksMap.get(blockId);
+            if (block == null) {
+                block = new BlockDTO(blockId, blockTitle, description, new ArrayList<>());
+                blocksMap.put(blockId, block);
+            }
+
+            List<List<CellDTO>> rows = block.getRows();
+            while (rows.size() <= rowNum) {
+                rows.add(new ArrayList<>());
+            }
+            rows.get(rowNum).add(new CellDTO(colNum, content));
+        }
+
+        return new ArrayList<>(blocksMap.values());
     }
 }
 //package com.spring.repository;

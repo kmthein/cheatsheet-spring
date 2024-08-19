@@ -2,6 +2,7 @@
 <jsp:include page="/WEB-INF/views/component/nav.jsp"></jsp:include>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <style></style>
 <div class="container">
 	<h2 class="center-title">All Cheatsheets</h2>
@@ -22,8 +23,9 @@
 					<h5
 							style="font-size: 20px; color: white;">${cs.name}</h5></a>
 					<p style="font-size: 16px; margin: 5px 0;">${fn:substring(cs.description, 0, 100)}</p>
-					<p style="font-size: 16px; margin: 5px 0;">${cs.user.name}</p>
-					<span style="font-size: 15px; margin: 5px 0;'">${cs.createdAt}</span>
+					<p style="font-size: 16px; margin: 5px 0;">${cs.userName}</p>
+					<span style="font-size: 15px; margin: 5px 0;'">${cs.formattedCreatedAt}</span>
+
 				</div>
 			</c:forEach>
 		</div>

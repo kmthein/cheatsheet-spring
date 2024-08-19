@@ -1,14 +1,17 @@
 package com.spring.service;
 
+import com.spring.dto.BlockDTO;
 import com.spring.dto.CheatsheetDTO;
 import com.spring.entity.*;
 import com.spring.repository.CheatsheetInterface;
 import com.spring.repository.SectionInterface;
 import com.spring.repository.SubsectionInterface;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +25,9 @@ public class CheatsheetServiceImpl implements CheatsheetService {
 
     @Autowired
     private SubsectionInterface subsectionRepo;
+
+    @Autowired
+    private ModelMapper mapper;
 
     @Override
     public List<Cheatsheet> getAllCheatsheets() {
@@ -115,5 +121,21 @@ public class CheatsheetServiceImpl implements CheatsheetService {
             }
         }
         return result;
+    }
+
+    @Override
+    public List<BlockDTO> getBlocksForCheatsheet(int cheatsheetId) {
+        return cheatsheetRepo.getBlocksByCheatsheet(cheatsheetId);
+    }
+
+    @Override
+    public CheatsheetDTO convertToDTO(Cheatsheet cheatsheet) {
+        CheatsheetDTO cheatsheetDTO = mapper.map(cheatsheet, CheatsheetDTO.class);
+
+        // Custom field mapping (if necessary), for example, formatting createdAt
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        cheatsheetDTO.setFormattedCreatedAt(cheatsheet.getCreatedAt().format(formatter));
+        cheatsheetDTO.setUserName(cheatsheet.getUser().getName());
+        return cheatsheetDTO;
     }
 }
