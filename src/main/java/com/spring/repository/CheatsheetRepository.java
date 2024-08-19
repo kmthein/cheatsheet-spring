@@ -1,3 +1,40 @@
+package com.spring.repository;
+
+import com.spring.entity.Cheatsheet;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.List;
+
+@Repository
+public class CheatsheetRepository implements CheatsheetInterface {
+    @PersistenceContext
+    private EntityManager em;
+
+    @Override
+    public List<Cheatsheet> getAllCheatsheets() {
+        Query query = em.createQuery("SELECT c FROM Cheatsheet c", Cheatsheet.class);
+        List<Cheatsheet> cheatsheets = query.getResultList();
+        return cheatsheets;
+    }
+
+    @Transactional
+    @Override
+    public int addCheatsheet(Cheatsheet cheatsheet) {
+        int result = 0;
+        try {
+            em.persist(cheatsheet);
+            result = 1;
+        } catch (Exception e) {
+            result = 0;
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
+}
 //package com.spring.repository;
 //
 //import com.spring.model.Cheatsheet;

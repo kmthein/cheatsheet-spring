@@ -1,4 +1,3 @@
-<%@ page import="com.spring.model.UserOld"%>
 <%@ page import="com.spring.entity.User" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">

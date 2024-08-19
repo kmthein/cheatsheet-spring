@@ -1,4 +1,4 @@
-package com.spring.model;
+package com.spring.entity;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;

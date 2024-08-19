@@ -42,7 +42,7 @@
 											<td>${s.name}</td>
 											<td>${s.type}</td>
 											<td>${s.section.name}</td>
-											<td>${s.updatedAtFormatted}</td>
+											<td>${s.createdAt}</td>
 										</tr>
 									</c:forEach>
 									</tbody>
@@ -87,7 +87,7 @@
 					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
 					<button class="close" type="button" data-dismiss="modal"
 						aria-label="Close">
-						<span aria-hidden="true">×</span>
+						<span aria-hidden="true">ï¿½</span>
 					</button>
 				</div>
 				<div class="modal-body">Select "Logout" below if you are ready

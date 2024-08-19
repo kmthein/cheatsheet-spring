@@ -23,7 +23,7 @@
 					<div>
 						<label for="section" class="form-label"
 							style="display: block; margin-bottom: 2px">Section</label> 
-							<form:select path="sectionId"
+							<form:select path="sectionId" required="true"
 							id="section" name="section" class="form-select"
 							style="border: 1px solid #bfbfbf; border-radius: 5px; width: 12%;">
 							<option disabled selected value="">Select a section</option>

@@ -1,6 +1,5 @@
 package com.spring.entity;
 
-import com.spring.model.Role;
 import lombok.Data;
 
 import javax.persistence.*;

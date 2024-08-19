@@ -38,7 +38,7 @@
 										<tr>
 											<td>${status.index + 1}</td>
 											<td>${section.name}</td>
-											<td>${section.updatedAtFormatted}</td>
+											<td>${section.createdAt}</td>
 										</tr>
 									</c:forEach>
 									</tbody>

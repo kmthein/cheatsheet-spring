@@ -1,18 +1,18 @@
 package com.spring.controller;
 
 import com.spring.dto.CheatsheetDTO;
-import com.spring.model.Cheatsheet;
-import com.spring.model.Section;
-import com.spring.model.Subsection;
-import com.spring.model.UserOld;
-import com.spring.repository.SectionRepository;
-import com.spring.repository.SubsectionRepository;
+import com.spring.entity.Cheatsheet;
+import com.spring.entity.Section;
+import com.spring.entity.Subsection;
+import com.spring.entity.User;
+import com.spring.service.CheatsheetService;
+import com.spring.service.SectionService;
+import com.spring.service.SubsectionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,13 +22,14 @@ import java.util.List;
 
 @Controller
 public class CheatsheetController {
-
+    @Autowired
+    private CheatsheetService cheatsheetService;
 
     @Autowired
-    private SectionRepository sectionRepository;
+    private SectionService sectionService;
 
     @Autowired
-    private SubsectionRepository subsectionRepository;
+    private SubsectionService subsectionService;
 
     @Autowired
     ModelMapper mapper;
@@ -37,17 +38,34 @@ public class CheatsheetController {
     public String getHomePage() {
         return "index";
     }
-//    @GetMapping("/cheatsheets")
-//    public String getCheatsheets(Model model) {
-//        List<Cheatsheet> cheatsheets = cheatsheetRepository.getAllCheatsheets();
-//        List<Section> sections = sectionRepository.getAllSections();
-//        List<Subsection> subsections = subsectionRepository.getAllSubsections();
-//        model.addAttribute("cheatsheets", cheatsheets) ;
-//        model.addAttribute("sections", sections) ;
-//        model.addAttribute("subsections", subsections) ;
-//        return "allCheatsheets";
-//    }
-//
+    @GetMapping("/cheatsheets")
+    public String getCheatsheets(Model model) {
+        List<Cheatsheet> cheatsheets = cheatsheetService.getAllCheatsheets();
+        List<Section> sections = sectionService.getAllSections();
+        List<Subsection> subsections = subsectionService.getAllSubsections();
+        model.addAttribute("cheatsheets", cheatsheets) ;
+        model.addAttribute("sections", sections) ;
+        model.addAttribute("subsections", subsections) ;
+        return "allCheatsheets";
+    }
+
+    @GetMapping("/add-cheatsheet")
+    public ModelAndView getAddCheatsheetPage(Model model) {
+        List<Section> sections = sectionService.getAllSections();
+        model.addAttribute("sections", sections);
+        return new ModelAndView("createCheatsheet", "cheatsheetDTO", new CheatsheetDTO());
+    }
+    @PostMapping("/add-cheatsheet")
+    public String addCheatsheet(CheatsheetDTO cheatsheetDTO, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute("user");
+        int result = cheatsheetService.addCheatsheet(cheatsheetDTO, currentUser);
+        if(result > 0) {
+            return "redirect:/cheatsheets";
+        } else {
+            return "createCheatsheet";
+        }
+    }
 //    @GetMapping("/cheatsheets/{id}")
 //    public String getCheatsheetById(@PathVariable int id, Model model) {
 //        Cheatsheet cheatsheet = cheatsheetRepository.getCheatsheetById(id);
@@ -66,13 +84,6 @@ public class CheatsheetController {
 //        return "allCheatsheets";
 //    }
 //
-//    @GetMapping("/add-cheatsheet")
-//    public ModelAndView getAddCheatsheetPage(Model model) {
-//        List<Section> sections = sectionRepository.getAllSections();
-//        model.addAttribute("sections", sections);
-//        return new ModelAndView("createCheatsheet", "cheatsheetDTO", new CheatsheetDTO());
-//    }
-
 //    @PostMapping("/add-cheatsheet")
 //    public String addCheatsheet(CheatsheetDTO cheatsheetDTO, HttpServletRequest request) {
 //        HttpSession session = request.getSession();

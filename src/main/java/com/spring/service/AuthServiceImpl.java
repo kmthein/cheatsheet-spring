@@ -4,9 +4,8 @@ import com.spring.dto.LoginDTO;
 import com.spring.dto.ResponseDTO;
 import com.spring.entity.User;
 import com.spring.jbcrypt.BCrypt;
-import com.spring.model.Role;
+import com.spring.entity.Role;
 import com.spring.repository.UserInterface;
-import com.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

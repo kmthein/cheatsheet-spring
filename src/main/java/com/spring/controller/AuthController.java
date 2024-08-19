@@ -3,8 +3,6 @@ package com.spring.controller;
 import com.spring.dto.LoginDTO;
 import com.spring.dto.ResponseDTO;
 import com.spring.entity.User;
-import com.spring.jbcrypt.BCrypt;
-import com.spring.model.UserOld;
 import com.spring.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,7 +47,7 @@ public class AuthController {
 
     @GetMapping("/register")
     public ModelAndView getRegisterPage() {
-        return new ModelAndView("registerPage", "user", new UserOld());
+        return new ModelAndView("registerPage", "user", new User());
     }
 
     @PostMapping("/register")

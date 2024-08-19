@@ -31,12 +31,12 @@
 	<h2 class="center-title">Create New Cheatsheet</h2>
 	<div class="col-12">
 		<label for="name" class="form-label">Name</label> 
-		<form:input path="name" type="text"
+		<form:input path="name" type="text" required="true"
 			class="form-control" name="name" id="name" />
 	</div>
 	<div class="col-12">
 		<label for="description" class="form-label">Description</label> 
-		<form:input path="description"
+		<form:input path="description" required="true"
 			type="text" class="form-control" name="description" id="description" />
 	</div>
 	<div class="col-md-6">
@@ -64,7 +64,7 @@
 		</form:select>
 	</div>
 	<div class="col-6">
-		<label for="section" class="form-label">Section</label> <form:select path="sectionId"
+		<label for="section" class="form-label">Section</label> <form:select path="sectionId" required="true"
 			id="section" name="section" onchange="loadSections(this.value)"
 			class="form-select">
 			<option disabled selected>Select section</option>
@@ -74,67 +74,67 @@
 		</form:select>
 	</div>
 	<div class="col-6">
-		<label for="subsection" class="form-label">Subsection</label> <form:select path="subsectionId"
+		<label for="subsection" class="form-label">Subsection</label> <form:select path="subsectionId" required="true"
 			id="subsection" name="subsection" class="form-select">
 			<option value="">Please select section first</option>
 		</form:select>
 	</div>
-	<div class="col-12">
-		<label for="layout" class="form-label">Layout</label> <form:select path="layout"
-			id="layout" name="layout" class="form-select">
-			<option value="2" selected>two columns</option>
-			<!-- 			<option value="3">three columns</option>
-			<option value="4">four columns</option> -->
-		</form:select>
-	</div>
-	<div class="col-12">
-		<div class="d-flex justify-content-between">
-			<label class="form-label">Content</label>
-<!-- 			<div id="block-add" style="margin-top: 2px;">
-							<i class="bi bi-arrow-down-square"></i> <label
-								class="form-check-label ml-2" for="gridCheck"
-								style="cursor: pointer">Add New Block</label>
-			</div> -->
-		</div>
-		<div class="col-12">
-			<div class="row g-3" id="cheatsheetForm">
-				<div class="col-12 mb-2">
-					<label for="title" class="form-label">Title</label> <input
-						type="text" id="title" class="form-control" name="title">
-				</div>
-				<div class="d-flex">
-					<div class="col-md-6">
-						<label for="column1" class="form-label" name="column1">Column
-							1</label>
-					</div>
-					<div class="col-md-6">
-						<label for="column2" class="form-label" name="column2">Column
-							2</label>
-					</div>
-				</div>
-				<div id="input-container">
-					<div class="d-flex gap-2 mb-4">
-						<div class="col-md-6">
-							<input type="text" class="form-control" name="column1"
-								id="column1">
-						</div>
-						<div class="col-md-6">
-							<input type="text" class="form-control" name="column2"
-								id="column2">
-						</div>
-					</div>
-				</div>
-				<div class="d-flex justify-content-end">
-					<div id="row-add" style="margin-top: 2px;">
-						<i class="bi bi-plus-circle"></i> <label
-							class="form-check-label ml-2"
-							style="cursor: pointer">Add New Row</label>
-					</div>
-				</div>
-			</div>
-</div>
-<div class="col-12 d-flex justify-content-center my-4">
-	<button type="submit" class="btn btn-secondary">Submit</button>
+<%--	<div class="col-12">--%>
+<%--		<label for="layout" class="form-label">Layout</label> <form:select path="layout"--%>
+<%--			id="layout" name="layout" class="form-select">--%>
+<%--			<option value="2" selected>two columns</option>--%>
+<%--			<!-- 			<option value="3">three columns</option>--%>
+<%--			<option value="4">four columns</option> -->--%>
+<%--		</form:select>--%>
+<%--	</div>--%>
+<%--	<div class="col-12">--%>
+<%--		<div class="d-flex justify-content-between">--%>
+<%--			<label class="form-label">Content</label>--%>
+<%--<!-- 			<div id="block-add" style="margin-top: 2px;">--%>
+<%--							<i class="bi bi-arrow-down-square"></i> <label--%>
+<%--								class="form-check-label ml-2" for="gridCheck"--%>
+<%--								style="cursor: pointer">Add New Block</label>--%>
+<%--			</div> -->--%>
+<%--		</div>--%>
+<%--		<div class="col-12">--%>
+<%--			<div class="row g-3" id="cheatsheetForm">--%>
+<%--				<div class="col-12 mb-2">--%>
+<%--					<label for="title" class="form-label">Title</label> <input--%>
+<%--						type="text" id="title" class="form-control" name="title">--%>
+<%--				</div>--%>
+<%--				<div class="d-flex">--%>
+<%--					<div class="col-md-6">--%>
+<%--						<label for="column1" class="form-label" name="column1">Column--%>
+<%--							1</label>--%>
+<%--					</div>--%>
+<%--					<div class="col-md-6">--%>
+<%--						<label for="column2" class="form-label" name="column2">Column--%>
+<%--							2</label>--%>
+<%--					</div>--%>
+<%--				</div>--%>
+<%--				<div id="input-container">--%>
+<%--					<div class="d-flex gap-2 mb-4">--%>
+<%--						<div class="col-md-6">--%>
+<%--							<input type="text" class="form-control" name="column1"--%>
+<%--								id="column1">--%>
+<%--						</div>--%>
+<%--						<div class="col-md-6">--%>
+<%--							<input type="text" class="form-control" name="column2"--%>
+<%--								id="column2">--%>
+<%--						</div>--%>
+<%--					</div>--%>
+<%--				</div>--%>
+<%--				<div class="d-flex justify-content-end">--%>
+<%--					<div id="row-add" style="margin-top: 2px;">--%>
+<%--						<i class="bi bi-plus-circle"></i> <label--%>
+<%--							class="form-check-label ml-2"--%>
+<%--							style="cursor: pointer">Add New Row</label>--%>
+<%--					</div>--%>
+<%--				</div>--%>
+<%--			</div>--%>
+<%--</div>--%>
+<div class="col-12 d-flex justify-content-end mt-8 my-4">
+	<button type="submit" class="btn btn-secondary">Save as draft</button>
 </div>
 </form:form>
 </div>
