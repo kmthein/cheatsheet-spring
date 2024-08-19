@@ -18,10 +18,10 @@ public class Block extends Base {
     @Column(name = "block_title")
     private String blockTitle;
 
-    @ManyToOne(cascade = {
-            CascadeType.DETACH,  CascadeType.MERGE,
-            CascadeType.PERSIST,CascadeType.REFRESH
-    })
+    @Column(name = "layout")
+    private String layout;
+
+    @ManyToOne
     @JoinColumn(name = "cheatsheet_id")
     private Cheatsheet cheatsheet;
 }

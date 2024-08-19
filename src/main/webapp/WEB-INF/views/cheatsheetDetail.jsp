@@ -3,8 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page import="com.spring.utils.ColorUtil" %>
-<%@ page import="com.spring.model.Cheatsheet" %>
-<%@ page import="com.spring.model.UserOld" %>
+<%@ page import="com.spring.entity.Cheatsheet" %>
+<%@ page import="com.spring.entity.User" %>
 <%
 	// Access the Cheatsheet object using request scope
 	Cheatsheet cs = (Cheatsheet) request.getAttribute("cs");
@@ -37,12 +37,12 @@ tr:nth-child(odd) {
 			</h2>
 			<%
 				if(session.getAttribute("user") != null) {
-				UserOld user = (UserOld) session.getAttribute("user");
+				User user = (User) session.getAttribute("user");
 				if (user.getId() == cs.getUser().getId()) {
 			%>
 			<div>
-				<a href="edit-cheatsheet?id=${cs.id}"><button class="btn btn-primary">Edit</button></a>
-				<a href="edit-cheatsheet?id=${cs.id}"><button class="btn" style="background: red">Delete</button></a>
+				<a href="/edit-cheatsheet/${cs.id}"><button class="btn btn-primary">Edit</button></a>
+				<a href="/delete-cheatsheet/${cs.id}"><button class="btn" style="background: red">Delete</button></a>
 			</div>
 			<% }} %>
 		</div>
@@ -50,7 +50,7 @@ tr:nth-child(odd) {
 			<c:out value="${cs.description}" />
 		</p>
 		<hr>
-		${cs.content}
+<%--		${cs.content}--%>
 	</div>
 </div>
 <jsp:include page="layout/foot.jsp"></jsp:include>

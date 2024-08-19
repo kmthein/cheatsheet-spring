@@ -1,5 +1,7 @@
 package com.spring.repository;
 
+import com.spring.entity.Block;
+import com.spring.entity.Cell;
 import com.spring.entity.Cheatsheet;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -33,6 +36,91 @@ public class CheatsheetRepository implements CheatsheetInterface {
             System.out.println(e.getMessage());
         }
         return result;
+    }
+
+    @Override
+    public List<Cheatsheet> getCheatsheetsByUser(int userId) {
+        List<Cheatsheet> cheatsheetList = new ArrayList<>();
+        try {
+            Query query = em.createQuery("SELECT c FROM Cheatsheet c WHERE c.user.id = :id", Cheatsheet.class);
+            query.setParameter("id", userId);
+            cheatsheetList = query.getResultList();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+        return cheatsheetList;
+    }
+
+    @Override
+    public Cheatsheet getCheatsheetById(int id) {
+        Cheatsheet cheatsheet = null;
+        try {
+            Query query = em.createQuery("SELECT c FROM Cheatsheet c WHERE c.id = :id", Cheatsheet.class);
+            query.setParameter("id", id);
+            cheatsheet = (Cheatsheet) query.getSingleResult();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return cheatsheet;
+        }
+        return cheatsheet;
+    }
+
+    @Override
+    public List<Cheatsheet> getCheatsheetsBySection(int sectionId) {
+        List<Cheatsheet> cheatsheetList = new ArrayList<>();
+        try {
+            Query query = em.createQuery("SELECT c FROM Cheatsheet c WHERE c.section.id = :id", Cheatsheet.class);
+            query.setParameter("id", sectionId);
+            cheatsheetList = query.getResultList();
+        } catch (Exception e) {
+            cheatsheetList = null;
+            System.out.println(e.getMessage());
+            return cheatsheetList;
+        }
+        return cheatsheetList;
+    }
+
+    @Transactional
+    @Override
+    public Block saveBlock(Block block) {
+        try {
+            em.persist(block);
+            return block;
+        } catch (Exception e) {
+            block = null;
+            System.out.println(e.getMessage());
+        }
+        return block;
+    }
+
+    @Transactional
+    @Override
+    public int saveCells(Cell cell) {
+        int result = 0;
+        try {
+            em.persist(cell);
+            result = 1;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            result = 0;
+        }
+        return result;
+    }
+
+    @Override
+    public Block findBlockById(int id) {
+        Block block = null;
+        try {
+            Query query = em.createQuery("SELECT b FROM Block b WHERE b.id = :id", Block.class);
+            query.setParameter("id", id);
+            block = (Block) query.getSingleResult();
+        } catch (Exception e) {
+            block = null;
+            System.out.println(e.getMessage());
+            return block;
+        }
+        return block;
     }
 }
 //package com.spring.repository;

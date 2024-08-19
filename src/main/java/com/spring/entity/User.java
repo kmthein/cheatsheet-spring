@@ -3,6 +3,7 @@ package com.spring.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,4 +19,7 @@ public class User {
     private String description;
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private List<Cheatsheet> cheatsheets;
 }

@@ -23,10 +23,7 @@ public class Cell extends Base {
     @Column(name = "content")
     private String content;
 
-    @ManyToOne(cascade = {
-            CascadeType.DETACH,  CascadeType.MERGE,
-            CascadeType.PERSIST,CascadeType.REFRESH
-    })
+    @ManyToOne
     @JoinColumn(name = "block_id")
     private Block block;
 }
