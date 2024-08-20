@@ -40,4 +40,31 @@ public class UserRepository implements UserInterface {
         }
         return user;
     }
+
+    @Override
+    public User findById(int id) {
+        User user = null;
+        try {
+            user = em.find(User.class, id);
+        } catch (Exception e) {
+            user = null;
+            System.out.println(e.getMessage());
+        }
+        return user;
+    }
+
+    @Transactional
+    @Override
+    public int updateUser(User user) {
+        System.out.println(user);
+        int result = 0;
+        try {
+            em.merge(user);
+            result = 1;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            result = 0;
+        }
+        return result;
+    }
 }

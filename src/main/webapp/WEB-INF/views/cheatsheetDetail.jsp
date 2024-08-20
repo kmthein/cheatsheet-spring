@@ -65,7 +65,7 @@
 				if (user.getId() == cs.getUser().getId()) {
 		%>
 		<div>
-			<a href="/edit-cheatsheet/${cs.id}"><button class="btn btn-primary">Edit</button></a>
+			<a href="/edit-cheatsheet/${cs.user.id}"><button class="btn btn-primary">Edit</button></a>
 			<a href="/delete-cheatsheet/${cs.id}"><button class="btn" style="background: red">Delete</button></a>
 		</div>
 		<% }} %>

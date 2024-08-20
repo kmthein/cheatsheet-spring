@@ -38,6 +38,7 @@
 								}
 								}
 								%>
+								<li><a class="dropdown-item" href="/profile/${user.id}">My Profile</a></li>
 								<li><a class="dropdown-item" href="/cheatsheets/user/${user.id}">My Cheatsheets</a></li>
 								<li><a class="dropdown-item" href="/logout">Logout</a></li>
 							</ul></li>

@@ -42,6 +42,7 @@ public class CheatsheetController {
     public String getHomePage() {
         return "index";
     }
+
     @GetMapping("/cheatsheets")
     public String getCheatsheets(Model model) {
         List<Cheatsheet> cheatsheets = cheatsheetService.getAllCheatsheets();
@@ -50,9 +51,9 @@ public class CheatsheetController {
                 .collect(Collectors.toList());
         List<Section> sections = sectionService.getAllSections();
         List<Subsection> subsections = subsectionService.getAllSubsections();
-        model.addAttribute("cheatsheets", cheatsheetDTOs) ;
-        model.addAttribute("sections", sections) ;
-        model.addAttribute("subsections", subsections) ;
+        model.addAttribute("cheatsheets", cheatsheetDTOs);
+        model.addAttribute("sections", sections);
+        model.addAttribute("subsections", subsections);
         return "allCheatsheets";
     }
 
@@ -62,8 +63,8 @@ public class CheatsheetController {
         List<Section> sections = sectionService.getAllSections();
         List<Subsection> subsections = subsectionService.getAllSubsections();
         model.addAttribute("cheatsheets", cheatsheetList);
-        model.addAttribute("sections", sections) ;
-        model.addAttribute("subsections", subsections) ;
+        model.addAttribute("sections", sections);
+        model.addAttribute("subsections", subsections);
         return "userCheatsheets";
     }
 
@@ -71,24 +72,26 @@ public class CheatsheetController {
     public Object getAddCheatsheetPage(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("user");
-        if(currentUser == null) {
+        if (currentUser == null) {
             return "redirect:/home";
         }
         List<Section> sections = sectionService.getAllSections();
         model.addAttribute("sections", sections);
         return new ModelAndView("createCheatsheet", "cheatsheetDTO", new CheatsheetDTO());
     }
+
     @PostMapping("/add-cheatsheet")
     public String addCheatsheet(CheatsheetDTO cheatsheetDTO, HttpServletRequest request) {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("user");
         int result = cheatsheetService.addCheatsheet(cheatsheetDTO, currentUser);
-        if(result > 0) {
+        if (result > 0) {
             return "redirect:/cheatsheets";
         } else {
             return "createCheatsheet";
         }
     }
+
     @GetMapping("/cheatsheets/{id}")
     public String getCheatsheetById(@PathVariable int id, Model model) {
         Cheatsheet cheatsheet = cheatsheetService.getCheatsheetById(id);
@@ -121,6 +124,7 @@ public class CheatsheetController {
         model.addAttribute("subsections", subsections);
         return "editCheatsheet";
     }
+
     @GetMapping("/add-block")
     public String getAddBlockPage(@RequestParam("cheatsheet") int cheatsheet, @RequestParam("col") int col, Model model) {
         System.out.println(cheatsheet);
@@ -133,14 +137,14 @@ public class CheatsheetController {
     @PostMapping("/add-block")
     public String saveBlock(@RequestParam("title") String title, @RequestParam("layout") String layout, @RequestParam("cheatsheet") int cheatsheetId, @RequestParam Map<String, String> params) {
         int result = cheatsheetService.addBlock(title, cheatsheetId, layout, params);
-        if(result > 0) {
+        if (result > 0) {
             return "redirect:/cheatsheets";
         } else {
             return "addBlock";
         }
     }
 }
-    //    @PostMapping("/add-cheatsheet")
+//    @PostMapping("/add-cheatsheet")
 //    public String addCheatsheet(CheatsheetDTO cheatsheetDTO, HttpServletRequest request) {
 //        HttpSession session = request.getSession();
 //        UserOld currentUser = (UserOld) session.getAttribute("user");

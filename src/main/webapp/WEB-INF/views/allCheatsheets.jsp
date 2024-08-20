@@ -23,7 +23,7 @@
 					<h5
 							style="font-size: 20px; color: white;">${cs.name}</h5></a>
 					<p style="font-size: 16px; margin: 5px 0;">${fn:substring(cs.description, 0, 100)}</p>
-					<p style="font-size: 16px; margin: 5px 0;">${cs.userName}</p>
+					<p style="font-size: 16px; margin: 5px 0;">${cs.name}</p>
 					<span style="font-size: 15px; margin: 5px 0;'">${cs.formattedCreatedAt}</span>
 
 				</div>
