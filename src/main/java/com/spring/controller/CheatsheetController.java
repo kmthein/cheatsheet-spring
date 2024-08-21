@@ -59,10 +59,13 @@ public class CheatsheetController {
 
     @GetMapping("/cheatsheets/user/{id}")
     public String getCheatsheetsByUser(@PathVariable int id, Model model) {
-        List<Cheatsheet> cheatsheetList = cheatsheetService.getCheatsheetsByUser(id);
+        List<Cheatsheet> cheatsheets = cheatsheetService.getCheatsheetsByUser(id);
+        List<CheatsheetDTO> cheatsheetDTOs = cheatsheets.stream()
+                .map(cheatsheetService::convertToDTO)
+                .collect(Collectors.toList());
         List<Section> sections = sectionService.getAllSections();
         List<Subsection> subsections = subsectionService.getAllSubsections();
-        model.addAttribute("cheatsheets", cheatsheetList);
+        model.addAttribute("cheatsheets", cheatsheetDTOs);
         model.addAttribute("sections", sections);
         model.addAttribute("subsections", subsections);
         return "userCheatsheets";
@@ -104,9 +107,12 @@ public class CheatsheetController {
     @GetMapping("/cheatsheets/section/{id}")
     public String cheatsheetFilterBySection(@PathVariable int id, Model model) {
         List<Cheatsheet> cheatsheets = cheatsheetService.getCheatsheetsBySection(id);
+        List<CheatsheetDTO> cheatsheetDTOs = cheatsheets.stream()
+                .map(cheatsheetService::convertToDTO)
+                .collect(Collectors.toList());
         List<Section> sections = sectionService.getAllSections();
         List<Subsection> subsections = subsectionService.getAllSubsections();
-        model.addAttribute("cheatsheets", cheatsheets);
+        model.addAttribute("cheatsheets", cheatsheetDTOs);
         model.addAttribute("sections", sections);
         model.addAttribute("subsections", subsections);
         return "allCheatsheets";
