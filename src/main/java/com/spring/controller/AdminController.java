@@ -1,5 +1,6 @@
 package com.spring.controller;
 
+import com.spring.dto.ResponseDTO;
 import com.spring.dto.SubsectionDTO;
 import com.spring.entity.Section;
 import com.spring.entity.Subsection;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -46,6 +48,26 @@ public class AdminController {
     @GetMapping("/admin/add-section")
     public ModelAndView getAddSectionPage() {
         return new ModelAndView("addSection", "section", new Section());
+    }
+
+    @GetMapping("/admin/subsection/{id}")
+    public ModelAndView getEditSubsection(@PathVariable int id, Model model) {
+        List<Section> sections = sectionService.getAllSections();
+        Subsection subsection = subsectionService.getSubsectionById(id);
+        model.addAttribute("sections", sections);
+        return new ModelAndView("editSubsection", "subsection", subsection);
+    }
+
+    @PostMapping(("/admin/subsection/{id}"))
+    public String updateSubsection(Subsection subsection, Model model) {
+        System.out.println(subsection.getName());
+        ResponseDTO res = subsectionService.updateSubsection(subsection);
+        if(res.getStatus().equals("200")) {
+            return "redirect:/admin/subsection";
+        } else {
+            model.addAttribute("error", res.getMessage());
+            return "redirect:/admin/subsection/{id}";
+        }
     }
 
     @GetMapping("/admin/add-subsection")

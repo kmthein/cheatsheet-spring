@@ -9,6 +9,6 @@ public interface SubsectionInterface {
     List<Subsection> getSubsectionBySectionId(int sectionId);
     Subsection getSubsectionById(int id);
     Subsection getSubsectionByName(String name);
-
     int save(Subsection subsection);
+    int update(Subsection subsection);
 }

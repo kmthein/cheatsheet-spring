@@ -33,6 +33,7 @@
 											<th>Type</th>
 											<th>Section</th>
 											<th>Created At</th>
+											<th>Action</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -43,6 +44,9 @@
 											<td>${s.type}</td>
 											<td>${s.section.name}</td>
 											<td>${s.createdAt}</td>
+											<td>
+												<a href="/admin/subsection/${s.id}">Edit</a>
+											</td>
 										</tr>
 									</c:forEach>
 									</tbody>

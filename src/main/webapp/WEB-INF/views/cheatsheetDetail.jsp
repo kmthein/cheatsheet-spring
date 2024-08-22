@@ -74,16 +74,16 @@
 		${cs.description}
 	</div>
 	<c:set var="lastBlockId" value="0" /> <!-- Initialize the lastBlockId variable -->
-
+	<div style="display: flex; gap: 10px; flex-wrap: wrap">
 	<c:forEach var="block" items="${blocks}">
 		<!-- Only render the block title and description if the block ID has changed -->
+		<div style="width: calc(50% - 10px);">
 		<c:if test="${lastBlockId != block.blockId}">
 				<div class="block-title">
 						${block.title}
 				</div>
 			<c:set var="lastBlockId" value="${block.blockId}" /> <!-- Update lastBlockId -->
 		</c:if>
-
 		<!-- Table for the block's cells -->
 		<table class="block-table">
 			<tbody>
@@ -98,6 +98,8 @@
 			</c:forEach>
 			</tbody>
 		</table>
+		</div>
 	</c:forEach>
+	</div>
 </div>
 <jsp:include page="layout/foot.jsp"></jsp:include>

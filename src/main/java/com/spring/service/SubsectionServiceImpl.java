@@ -1,5 +1,6 @@
 package com.spring.service;
 
+import com.spring.dto.ResponseDTO;
 import com.spring.entity.Section;
 import com.spring.entity.Subsection;
 import com.spring.repository.SectionInterface;
@@ -34,6 +35,12 @@ public class SubsectionServiceImpl implements SubsectionService {
     }
 
     @Override
+    public Subsection getSubsectionById(int id) {
+        Subsection subsection = subsectionRepo.getSubsectionById(id);
+        return subsection;
+    }
+
+    @Override
     public int saveSubsection(String name, String type, int sectionId) {
         Section section = sectionRepo.getSectionById(sectionId);
         Subsection subsection = new Subsection();
@@ -43,5 +50,26 @@ public class SubsectionServiceImpl implements SubsectionService {
         subsection.setName(name);
         subsection.setType(type);
         return subsectionRepo.save(subsection);
+    }
+
+    @Override
+    public ResponseDTO updateSubsection(Subsection subsection) {
+        Subsection tempSubsection = subsectionRepo.getSubsectionById(subsection.getId());
+        ResponseDTO responseDTO = new ResponseDTO();
+        if(tempSubsection != null) {
+            Section section = sectionRepo.getSectionById(subsection.getSection().getId());
+            tempSubsection.setName(subsection.getName());
+            tempSubsection.setSection(section);
+            tempSubsection.setType(subsection.getType());
+            int result = subsectionRepo.update(tempSubsection);
+            if(result > 0) {
+                responseDTO.setStatus("200");
+                responseDTO.setMessage("Subsection update successful");
+            } else {
+                responseDTO.setStatus("404");
+                responseDTO.setMessage("Update failed");
+            }
+        }
+        return responseDTO;
     }
 }

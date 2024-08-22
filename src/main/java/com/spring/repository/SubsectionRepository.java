@@ -27,9 +27,15 @@ public class SubsectionRepository implements SubsectionInterface {
 
     @Override
     public Subsection getSubsectionById(int id) {
-        Query query = em.createQuery("SELECT s FROM Subsection s WHERE s.id = :id", Subsection.class);
-        query.setParameter("id", id);
-        Subsection subsection = (Subsection) query.getSingleResult();
+        Subsection subsection = null;
+        try {
+            Query query = em.createQuery("SELECT s FROM Subsection s WHERE s.id = :id", Subsection.class);
+            query.setParameter("id", id);
+            subsection = (Subsection) query.getSingleResult();
+        } catch (Exception e) {
+            subsection = null;
+            System.out.println(e.getMessage());
+        }
         return subsection;
     }
 
@@ -58,6 +64,21 @@ public class SubsectionRepository implements SubsectionInterface {
             result = 0;
             System.out.println(e.getMessage());
         }
+        return result;
+    }
+
+    @Transactional
+    @Override
+    public int update(Subsection subsection) {
+        int result = 0;
+        try {
+            em.merge(subsection);
+            result = 1;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            result = 0;
+        }
+        System.out.println(result);
         return result;
     }
 }
