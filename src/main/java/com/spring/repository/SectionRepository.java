@@ -15,7 +15,7 @@ public class SectionRepository implements SectionInterface {
     private EntityManager em;
     @Override
     public List<Section> getAllSections() {
-        Query query = em.createQuery("SELECT s FROM Section s", Section.class);
+        Query query = em.createQuery("SELECT s FROM Section s WHERE s.isDeleted = false", Section.class);
         List<Section> sectionList = query.getResultList();
         return sectionList;
     }
@@ -52,6 +52,20 @@ public class SectionRepository implements SectionInterface {
         } catch (Exception e) {
             result = 0;
             System.out.println(e.getMessage());
+        }
+        return result;
+    }
+
+    @Transactional
+    @Override
+    public int update(Section section) {
+        int result = 0;
+        try {
+            em.merge(section);
+            result = 1;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            result = 0;
         }
         return result;
     }

@@ -12,4 +12,5 @@ public interface SectionInterface {
     Section getSectionByName(String name);
 
     int saveSection(Section section);
+    int update(Section section);
 }

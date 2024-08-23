@@ -15,7 +15,7 @@ public class SubsectionRepository implements SubsectionInterface {
     private EntityManager em;
     @Override
     public List<Subsection> getAllSubsections() {
-        Query query = em.createQuery("SELECT s FROM Subsection s", Subsection.class);
+        Query query = em.createQuery("SELECT s FROM Subsection s WHERE s.isDeleted = false", Subsection.class);
         List<Subsection> subsectionList = query.getResultList();
         return subsectionList;
     }
@@ -78,7 +78,6 @@ public class SubsectionRepository implements SubsectionInterface {
             System.out.println(e.getMessage());
             result = 0;
         }
-        System.out.println(result);
         return result;
     }
 }

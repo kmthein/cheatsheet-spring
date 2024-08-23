@@ -72,4 +72,22 @@ public class SubsectionServiceImpl implements SubsectionService {
         }
         return responseDTO;
     }
+
+    @Override
+    public ResponseDTO deleteById(int id) {
+        Subsection subsection = subsectionRepo.getSubsectionById(id);
+        if(subsection != null) {
+            subsection.setIsDeleted(true);
+        }
+        int result = subsectionRepo.update(subsection);
+        ResponseDTO responseDTO = new ResponseDTO();
+        if(result >  0) {
+            responseDTO.setStatus("200");
+            responseDTO.setMessage("Delete success");
+        } else {
+            responseDTO.setStatus("403");
+            responseDTO.setMessage("Delete failed");
+        }
+        return responseDTO;
+    }
 }

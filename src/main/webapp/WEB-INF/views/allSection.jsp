@@ -31,6 +31,7 @@
 											<th>No</th>
 											<th>Name</th>
 											<th>Created At</th>
+											<th>Action</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -39,6 +40,10 @@
 											<td>${status.index + 1}</td>
 											<td>${section.name}</td>
 											<td>${section.createdAt}</td>
+											<td style="display: flex; align-items: center; gap: 15px;">
+												<a href="/admin/section/${section.id}">Edit</a>
+												<a href="/section/delete/${section.id}" style="color: red">Delete</a>
+											</td>
 										</tr>
 									</c:forEach>
 									</tbody>

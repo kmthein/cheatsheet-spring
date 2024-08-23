@@ -17,4 +17,6 @@ public interface SubsectionService {
     int saveSubsection(String name, String type, int sectionId);
 
     ResponseDTO updateSubsection(Subsection subsection);
+
+    ResponseDTO deleteById(int id);
 }

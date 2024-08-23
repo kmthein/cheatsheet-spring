@@ -46,7 +46,7 @@
 											<td>${s.createdAt}</td>
 											<td style="display: flex; align-items: center; gap: 15px;">
 												<a href="/admin/subsection/${s.id}">Edit</a>
-												<a href="/subsection/delete/${s.id}" style="">Delete</a>
+												<a href="/subsection/delete/${s.id}" style="color: red">Delete</a>
 											</td>
 										</tr>
 									</c:forEach>

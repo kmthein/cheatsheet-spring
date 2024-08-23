@@ -61,7 +61,7 @@ public class AuthController {
             return "registerPage";
         } else if (res.getStatus().equals("201")) {
             model.addAttribute("message", res.getMessage());
-            return "redirect:/home";
+            return "redirect:/";
         }  else {
             return "registerPage";
         }
