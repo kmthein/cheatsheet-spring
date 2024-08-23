@@ -38,7 +38,7 @@ public class CheatsheetController {
     @Autowired
     ModelMapper mapper;
 
-    @GetMapping("/home")
+    @GetMapping("/")
     public String getHomePage() {
         return "index";
     }
@@ -144,7 +144,7 @@ public class CheatsheetController {
     public String saveBlock(@RequestParam("title") String title, @RequestParam("layout") String layout, @RequestParam("cheatsheet") int cheatsheetId, @RequestParam Map<String, String> params) {
         int result = cheatsheetService.addBlock(title, cheatsheetId, layout, params);
         if (result > 0) {
-            return "redirect:/cheatsheets";
+            return "redirect:/cheatsheets/" + cheatsheetId;
         } else {
             return "addBlock";
         }

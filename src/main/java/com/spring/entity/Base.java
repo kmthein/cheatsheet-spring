@@ -17,11 +17,16 @@ public class Base {
 	private LocalDateTime createdAt;
 	@Column(name = "updated_at")
 	private LocalDateTime updatedAt;
+	@Column(name = "is_deleted", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+	private Boolean isDeleted = false;
 //	private String updatedAtFormatted;
 	@PrePersist
 	protected void onCreate() {
 		createdAt = LocalDateTime.now();
 		updatedAt = LocalDateTime.now();
+		if (isDeleted == null) {
+			isDeleted = false;
+		}
 	}
 
 	@PreUpdate

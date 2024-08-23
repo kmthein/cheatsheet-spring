@@ -44,8 +44,9 @@
 											<td>${s.type}</td>
 											<td>${s.section.name}</td>
 											<td>${s.createdAt}</td>
-											<td>
+											<td style="display: flex; align-items: center; gap: 15px;">
 												<a href="/admin/subsection/${s.id}">Edit</a>
+												<a href="/subsection/delete/${s.id}" style="">Delete</a>
 											</td>
 										</tr>
 									</c:forEach>

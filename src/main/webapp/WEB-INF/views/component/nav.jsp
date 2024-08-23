@@ -3,7 +3,7 @@
 <nav class="navbar navbar-expand-lg navbar-light" id="mainNav"
 	style="position: relative">
 	<div class="container">
-		<a class="navbar-brand" style="color: black" href="${pageContext.request.contextPath}/home">Cheatography</a>
+		<a class="navbar-brand" style="color: black" href="${pageContext.request.contextPath}/">Cheatography</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 			data-bs-target="#navbarResponsive" aria-controls="navbarResponsive"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -12,7 +12,7 @@
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav ms-auto py-4 py-lg-0">
 				<li class="nav-item"><a style="color: black"
-					class="nav-link px-lg-3 py-3 py-lg-4" href="/home">Home</a></li>
+					class="nav-link px-lg-3 py-3 py-lg-4" href="/">Home</a></li>
 				<li class="nav-item"><a style="color: black"
 					class="nav-link px-lg-3 py-3 py-lg-4" href="/cheatsheets">Cheatsheet</a></li>
 				<%

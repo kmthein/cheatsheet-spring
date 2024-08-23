@@ -60,7 +60,6 @@ public class AdminController {
 
     @PostMapping(("/admin/subsection/{id}"))
     public String updateSubsection(Subsection subsection, Model model) {
-        System.out.println(subsection.getName());
         ResponseDTO res = subsectionService.updateSubsection(subsection);
         if(res.getStatus().equals("200")) {
             return "redirect:/admin/subsection";
